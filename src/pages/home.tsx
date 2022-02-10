@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, useNavigate } from "react-router-dom";
 
+import { auth, firebase } from "../services/firebase"
+
 import illustrationImg from "../assets/images/illustration.svg";
 import logoImg from "../assets/images/logo.svg";
 import googleIconImg from "../assets/images/google-icon.svg";
@@ -15,7 +17,14 @@ export function Home() {
   
 
   function handleCreteRoom() {
-    history("/new/room")
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider).then(result => {
+      console.log(result);  
+
+      history("/new/room")
+    })
+
+
   }
   return (
     <div id="page-auth">
